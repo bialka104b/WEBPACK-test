@@ -41,6 +41,7 @@
     "webpack-plugin": "^1.0.5"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.4"
+    "@babel/polyfill": "^7.10.4",
+    "jquery": "^3.5.1"
   }
 }

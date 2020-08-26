@@ -1,7 +1,9 @@
-import photo from "../images/forest.jpg";
-//import mouse from "../images/mouse.jpg";
+import photo from "../images/forest.jpg"; //las
+
+import $ from "jquery";
 export default (tag) => {
-  const img = document.createElement("img");
-  img.src = photo;
-  document.querySelector(tag).appendChild(img);
+  // const img = document.createElement("img");
+  // img.src = photo;
+  // document.querySelector(tag).appendChild(img);
+  $(tag).append(`<img src="${photo}" alt=""/>`);
 };
