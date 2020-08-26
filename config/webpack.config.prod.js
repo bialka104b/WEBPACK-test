@@ -2,6 +2,7 @@ const path = require("path"); //odwołanie(import) do modułu path webpacka
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); //import do pluginu do czyszczenia folderu po przebudowie webpackiem
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //plugin wykorzystywany przy hashah
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //plugin do łączenia 2 plików css w jeden
+const CopyPlugin = require("copy-webpack-plugin"); //plugin do kopiowania plików z wersji dev do prod
 
 module.exports = {
   mode: "production",
@@ -54,7 +55,7 @@ module.exports = {
         loader: "babel-loader", //można uzuć też use:
         exclude: /node_modules/, //jeśli w ścieżce pojawi się napis node_modules to nie zostanie to uwzględnione przez babel-loader, bo tych plików nie chcemy transpilować
         options: {
-          presets: ["@babel/preset-env"],
+          presets: [["@babel/preset-env", { useBuiltIns: "usage", corejs: "2.0.0" }]],
           plugins: ["@babel/plugin-proposal-class-properties"],
         },
       },
@@ -69,6 +70,10 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name]-[contenthash:3].css", //nazwa pliku po bbundlingu
+    }),
+
+    new CopyPlugin({
+      patterns: [{ from: "public/images/", to: "images" }],
     }),
   ],
 };

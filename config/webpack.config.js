@@ -3,6 +3,7 @@ const path = require("path"); //odwołanie(import) do modułu path webpacka
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); //import do pluginu do czyszczenia folderu po przebudowie webpackiem
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //plugin wykorzystywany przy hashah
 //const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //plugin do łączenia 2 plików css w jeden
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -49,7 +50,11 @@ module.exports = {
         //babel
         test: /\.js$/,
         loader: "babel-loader", //można uzuć też use:
-        exclude: /node_modules/, //jeśli w ścieżce pojawi się napis node_modules to nie zostanie to uwzględnione przez babel-loader, bo tych plików nie chcemy transpilować
+        exclude: /node_modules/, //jeśli w ścieżce pojawi się napis node_modules to nie zostanie to uwzględnione przez babel-loader, bo tych plików nie chcemy
+        options: {
+          presets: [["@babel/preset-env", { useBuiltIns: "usage", corejs: "2.0.0" }]],
+          plugins: ["@babel/plugin-proposal-class-properties"],
+        },
       },
     ],
   },
@@ -61,15 +66,8 @@ module.exports = {
       template: "src/template/template.html",
       title: "nowa apka", //zmieni nam title naszej strony
     }),
-    new HtmlWebpackPlugin({
-      //używane przy plikach hashowanych
-      title: "nowa apka", //zmieni nam title naszej strony
-      filename: "about.html",
+    new CopyPlugin({
+      patterns: [{ from: "src/images/", to: "images" }],
     }),
-
-    // new MiniCssExtractPlugin({
-    //   //plugin do łączenia 2 plików css w jeden
-    //   filename: "css/[name].css", //nazwa pliku po bbundlingu
-    // }),
   ],
 };

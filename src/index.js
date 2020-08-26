@@ -1,8 +1,8 @@
-const { message, messageDOM } = require("./tools/mess.js");
+import { message, messageDOM } from "./tools/mess.js";
+import "./component/footer.js";
 import title from "./data/title.txt"; //import do działania loadera
 //import "./css/style.css";//style css
 import "./scss/index.scss"; //style w sass
-import "./component/footer.js";
 import addImage from "./tools/image.js";
 import CreatorDefaultClass from "./tools/create";
 
@@ -21,3 +21,5 @@ c2.addBg_color("blue");
 const c3 = new CreatorDefaultClass();
 c3.addBg_color();
 c3.showColor();
+
+let promise = new Promise(function (resolve, reject) { resolve("ok") });
