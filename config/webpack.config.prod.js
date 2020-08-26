@@ -63,7 +63,7 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(), //dodana właściwość pluginu do czyszenia folderu po przebudowie webpackiem
+    new CleanWebpackPlugin(), //dodana właściwość pluginu do czyszenia folderu po przebudowie webpackiem .
     new HtmlWebpackPlugin({
       template: "src/template/template.html",
       title: "nowa apka",
