@@ -28,13 +28,28 @@ module.exports = {
       },
       {
         test: /\.css$/, //dla danych typów plików css
-        use: ["style-loader", "css-loader"], //załaduje nam 2 osobne pliki
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: { plugins: [require("autoprefixer")] },
+          },
+        ], //załaduje nam 2 osobne pliki
         //use: [MiniCssExtractPlugin.loader, "css-loader"], //załaduje nam 1 skondensowany plik
       },
       {
         test: /\.(sass|scss)$/, //dla danych typów plików css
         //use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: { plugins: [require("autoprefixer")] },
+          },
+          "sass-loader",
+        ],
       }, //tutaj trzeba użyć obu bo musi kompilowac z sass na css
 
       {

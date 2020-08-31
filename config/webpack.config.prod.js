@@ -21,11 +21,27 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"], //chcemy uzywać ten loader
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: { plugins: [require("autoprefixer")] },
+          },
+        ], //chcemy uzywać ten loader
       },
       {
         test: /\.(sass|scss)$/, //dla danych typów plików css
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], //chcemy uzywać ten loader
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: { plugins: [require("autoprefixer")] },
+            //options: { parser: "sugarss", exec: true },
+          },
+          "sass-loader",
+        ], //chcemy uzywać ten loader
       },
       {
         test: /\.(jpg|png|gif|jpeg|svg)$/, //dla danych typów plików graficznych
@@ -67,6 +83,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/template/template.html",
       title: "nowa apka",
+      minify: {
+        //właściwość do minifikowania HTMLA do 1 lini
+        collapseWhitespace: true,
+      },
     }),
     new MiniCssExtractPlugin({
       filename: "[name]-[contenthash:3].css", //nazwa pliku po bbundlingu
